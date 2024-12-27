@@ -5,6 +5,18 @@ from pyspark.sql import SparkSession
 from pyspark.sql.functions import from_json, col
 from pyspark.sql.types import StructType, StructField, StringType
 
+def create_cassandra_connection():
+    try:
+        # connecting to the cassandra cluster
+        cluster = Cluster(['cassandra'])
+
+        cas_session = cluster.connect()
+
+        return cas_session
+    except Exception as e:
+        logging.error(f"Could not create cassandra connection due to {e}")
+        return None
+    
 
 def create_keyspace(session):
     session.execute("""
@@ -87,7 +99,7 @@ def connect_to_kafka(spark_conn):
     try:
         spark_df = spark_conn.readStream \
             .format('kafka') \
-            .option('kafka.bootstrap.servers', 'broker:29092') \
+            .option('kafka.bootstrap.servers', 'broker:19092') \
             .option('subscribe', 'users_created') \
             .option('startingOffsets', 'earliest') \
             .load()
@@ -96,19 +108,6 @@ def connect_to_kafka(spark_conn):
         logging.warning(f"kafka dataframe could not be created because: {e}")
 
     return spark_df
-
-
-def create_cassandra_connection():
-    try:
-        # connecting to the cassandra cluster
-        cluster = Cluster(['cassandra'])
-
-        cas_session = cluster.connect()
-
-        return cas_session
-    except Exception as e:
-        logging.error(f"Could not create cassandra connection due to {e}")
-        return None
 
 
 def create_selection_df_from_kafka(spark_df):
