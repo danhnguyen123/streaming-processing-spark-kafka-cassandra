@@ -175,7 +175,7 @@ services:
       - "7077:7077"
       - "4040:4040"
     volumes:
-      - .:/opt/app
+      - .:/opt/workspace
     networks:
       - confluent
 
@@ -190,7 +190,7 @@ services:
       SPARK_WORKER_MEMORY: 1g
       SPARK_MASTER_URL: spark://spark-master:7077
     volumes:
-      - .:/opt/app
+      - .:/opt/workspace
     networks:
       - confluent
 

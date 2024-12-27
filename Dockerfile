@@ -13,7 +13,5 @@ RUN apt-get install -y --no-install-recommends \
 # install dependencies
 RUN pip install --upgrade pip
 
-WORKDIR /opt/app
-
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
