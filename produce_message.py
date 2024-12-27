@@ -1,8 +1,8 @@
 import uuid
 import json
-from kafka import KafkaProducer
 import time
 import logging
+from confluent_kafka import Producer
 
 def get_data():
     import requests
@@ -34,17 +34,21 @@ def format_data(res):
 
 def stream_data():
 
-    producer = KafkaProducer(bootstrap_servers=['broker:29092'], max_block_ms=5000)
-    curr_time = time.time()
+    producer = Producer({'bootstrap.servers': 'localhost:9092'})
 
     while True:
-        if time.time() > curr_time + 60: #1 minute
-            break
         try:
             res = get_data()
             res = format_data(res)
 
-            producer.send('users_created', json.dumps(res).encode('utf-8'))
+            producer.produce('users_created', json.dumps(res))
+            producer.flush()
+            print("Message published -> ", json.dumps(res))
+            time.sleep(2)  # delay between messages
         except Exception as e:
             logging.error(f'An error occured: {e}')
             continue
+
+
+if __name__ == "__main__":
+    stream_data()
