@@ -1,1 +1,3 @@
 confluent-kafka
+cassandra-driver
+py4j
