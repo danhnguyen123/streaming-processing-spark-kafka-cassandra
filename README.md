@@ -64,6 +64,18 @@ The project is designed with the following components:
 
 For more detailed instructions, please check out the video tutorial linked below.
 
+## Result
+
+1. Kafka
+![Kafka](./kafka-topic.png)
+
+2. Spark
+![Spark](./spark-app-stream.png)
+
+2. Cassandra
+![Cassandra](./cassandra-table.png)
+
 ## Watch the Video Tutorial
 
 For a complete walkthrough and practical demonstration, check out our [YouTube Video Tutorial](https://www.youtube.com/watch?v=GqAcTrqKcrY).
+
