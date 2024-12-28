@@ -1,3 +1,9 @@
+# Install python package
+pip3 install -r requirements.txt
+
+# Produce message to Kafka
+python3 produce_message.py
+
 # Spark Submit
 docker exec spark-master bash -c "python3 /opt/workspace/spark_stream.py"
 
