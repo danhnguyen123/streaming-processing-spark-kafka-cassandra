@@ -36,6 +36,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - confluent
 
   schema-registry:
     image: confluentinc/cp-schema-registry:7.4.0
